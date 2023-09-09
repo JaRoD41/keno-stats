@@ -8,11 +8,11 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
             <h1>KenoStats</h1>
             <div class="form-container">
             <div class="form-zone">
-            <input type="text" class="csvInput" placeholder="Entrez le csv">
+            <input type="text" id="csvInput" placeholder="Entrez le csv">
             <button class="submitCsv">Envoyer</button>
             </div>
             <div class="form-zone">
-            <input type="text" class="numberInput" placeholder="Entrez la boule">
+            <input type="text" id="numberInput" placeholder="Entrez la boule">
             <button class="submitNumber">Envoyer</button>
             </div>
             </div>
