@@ -8,7 +8,20 @@
     height: 100vh;
 }
 
+h1 {
+    margin-bottom: 5rem;
+}
+
 .stats-container {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    
+}
+
+.form-container {
     display: flex;
     width: 100%;
     flex-direction: row;
@@ -29,4 +42,5 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 5rem;
 }
