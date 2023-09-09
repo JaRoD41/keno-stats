@@ -1,5 +1,7 @@
 // J'importe le fichier json dans un tableau d'objets
-import csvjson from '../data/csvjson.json'
+// import csvjson from '../data/csvjson.json'
+
+// import Papa from 'papaparse'
 
 interface Tirage {
 	annee_numero_de_tirage: number
@@ -31,20 +33,42 @@ interface Tirage {
 	devise: string
 }
 
+import Papa from 'papaparse'
+
 // Je crée une fonction pour chercher les données en fonction des inputs
 export function statsChecker(event: Event): void {
 	// Je récupère les inputs
-	const csv = (document.querySelector('#csvInput') as HTMLInputElement).value
+	const csvInput = document.querySelector('#csvInput') as HTMLInputElement
+
 	const boule = (document.querySelector('#numberInput') as HTMLInputElement).value
 
-	const tirage = csvjson.find((tirage: Tirage) => Object.values(tirage).includes(Number(boule)))
+	if (csvInput.files && csvInput.files.length > 0) {
+		// Je crée une nouvelle instance de FileReader
+		const reader = new FileReader()
 
-	// Je mets à jour l'interface utilisateur avec les données du tirage
-	const resultElement = document.querySelector('.result-number') as HTMLDivElement
-	resultElement.textContent = ''
-	if (tirage) {
-		resultElement.textContent = `Date du dernier tirage : ${tirage.date_de_tirage}, Numéro du tirage : ${tirage.annee_numero_de_tirage}`
+		// Je définis ce qui se passe lorsque le fichier est chargé
+		reader.onload = () => {
+			// Je parse le contenu du fichier en JSON
+			const results = Papa.parse(reader.result as string, { header: true }).data as Tirage[]
+
+			console.log('results :', results)
+
+			const tirage = results.find((tirage: Tirage) => Object.values(tirage).includes(Number(boule)))
+
+			console.log('tirage :', tirage)
+
+			// Je mets à jour l'interface utilisateur avec les données du tirage
+			const resultElement = document.querySelector('.result-number') as HTMLDivElement
+			if (tirage) {
+				resultElement.textContent = `Date du dernier tirage : ${tirage.date_de_tirage}, Numéro du tirage : ${tirage.annee_numero_de_tirage}`
+			} else {
+				resultElement.textContent = 'Aucun tirage trouvé pour cette boule.'
+			}
+		}
+
+		// Je lis le contenu du fichier en tant que string
+		reader.readAsText(csvInput.files[0])
 	} else {
-		resultElement.textContent = 'Aucun tirage trouvé pour cette boule.'
+		alert('Veuillez entrer un fichier valide.')
 	}
 }

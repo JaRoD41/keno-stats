@@ -37,6 +37,10 @@ h1 {
     align-items: center;
 }
 
+.form-zone button {
+    margin-top: 2rem;
+}
+
 .results {
     display: flex;
     flex-direction: column;

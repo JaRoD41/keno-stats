@@ -8,8 +8,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
             <h1>KenoStats</h1>
             <div class="form-container">
             <div class="form-zone">
-            <input type="search" id="csvInput" placeholder="Entrez le csv">
-            <button class="submitCsv">Envoyer</button>
+            <input type="file" id="csvInput" placeholder="Entrez le csv">
             </div>
             <div class="form-zone">
             <input type="search" id="numberInput" placeholder="Entrez la boule">
@@ -25,5 +24,4 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     </main>
 `
 
-document.querySelector('.submitCsv')!.addEventListener('click', statsChecker)
 document.querySelector('.submitNumber')!.addEventListener('click', statsChecker)
