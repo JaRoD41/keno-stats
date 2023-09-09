@@ -1,6 +1,6 @@
 import '../style/normalize.css'
 import '../style/style.css'
-import statsChecker from '../scripts/stats'
+import { statsChecker } from '../scripts/stats'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 <main>
@@ -8,11 +8,11 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
             <h1>KenoStats</h1>
             <div class="form-container">
             <div class="form-zone">
-            <input type="text" id="csvInput" placeholder="Entrez le csv">
+            <input type="search" id="csvInput" placeholder="Entrez le csv">
             <button class="submitCsv">Envoyer</button>
             </div>
             <div class="form-zone">
-            <input type="text" id="numberInput" placeholder="Entrez la boule">
+            <input type="search" id="numberInput" placeholder="Entrez la boule">
             <button class="submitNumber">Envoyer</button>
             </div>
             </div>
@@ -25,4 +25,5 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     </main>
 `
 
-statsChecker()
+document.querySelector('.submitCsv')!.addEventListener('click', statsChecker)
+document.querySelector('.submitNumber')!.addEventListener('click', statsChecker)
