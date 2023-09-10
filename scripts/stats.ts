@@ -59,8 +59,10 @@ export function statsChecker(event: Event): void {
 
 			// Je mets à jour l'interface utilisateur avec les données du tirage
 			const resultElement = document.querySelector('.result-number') as HTMLDivElement
+			// Si il y a un tirage, je l'affiche
 			if (tirage) {
 				resultElement.textContent = `Date du dernier tirage : ${tirage.date_de_tirage}, Numéro du tirage : ${tirage.annee_numero_de_tirage}`
+				// Sinon, j'affiche un message d'erreur
 			} else {
 				resultElement.textContent = 'Aucun tirage trouvé pour cette boule.'
 			}
