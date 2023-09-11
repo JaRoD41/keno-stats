@@ -1,7 +1,4 @@
-// J'importe le fichier json dans un tableau d'objets
-// import csvjson from '../data/csvjson.json'
-
-// import Papa from 'papaparse'
+import Papa from 'papaparse'
 
 interface Tirage {
 	annee_numero_de_tirage: number
@@ -32,8 +29,6 @@ interface Tirage {
 	numero_jokerplus: string
 	devise: string
 }
-
-import Papa from 'papaparse'
 
 // Je crée une fonction pour chercher les données en fonction des inputs
 export function statsChecker(event: Event): void {
