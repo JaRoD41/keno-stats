@@ -2,6 +2,8 @@ import { getNumbersHistory } from './api'
 
 export const arrayGenerator = async () => {
 	const data = await getNumbersHistory()
+	console.log('data :', data)
+
 	const dataArray = document.querySelector('.historyArray') as HTMLDivElement
 
 	dataArray.innerHTML = ''
@@ -12,29 +14,25 @@ export const arrayGenerator = async () => {
 	for (let i = 0; i < data.length; i++) {
 		const resultsData = data[i].results
 		const resultDate = new Date(data[i].drawn_at)
-        
+		const formattedDate = resultDate.toLocaleDateString('fr-FR')
+		const resultNumber = data[i].este_eid
 
-		const day = resultDate.getDate().toString().padStart(2, '0')
-		const month = (resultDate.getMonth() + 1).toString().padStart(2, '0') // Les mois commencent à 0 en JavaScript
-		const year = resultDate.getFullYear()
-		const hours = resultDate.getHours().toString().padStart(2, '0')
-		const minutes = resultDate.getMinutes().toString().padStart(2, '0')
-
-		const formattedDate = `${day}/${month}/${year} à ${hours}h${minutes}`
-
-		for (let j = 0; j < resultsData.length; j++) {
+		for (let j = 0; j < resultsData.length - 1; j++) {
 			const tirages = resultsData[j].value
 
-			// Mettez à jour le tableau avec le dernier tirage et la date pour chaque numéro
-			numberInfo[tirages - 1] = { lastDraw: i + 1, date: formattedDate }
+			// Je mets à jour le tableau avec le dernier tirage et la date pour chaque numéro
+			if (numberInfo[tirages - 1].lastDraw === 'non tiré') {
+				numberInfo[tirages - 1] = { lastDraw: resultNumber, date: formattedDate }
+			}
 		}
 	}
 
 	for (let i = 0; i < numberInfo.length; i++) {
-		dataArray.innerHTML += `<li>Numéro ${i + 1} : dernier tirage N°235${numberInfo[i].lastDraw}, date : ${
+		dataArray.innerHTML += `<li>Numéro ${i + 1} : dernier tirage N°${numberInfo[i].lastDraw}, date : ${
 			numberInfo[i].date
 		}</li>`
 	}
-    console.log(data);
-    
+	console.log('numberInfo : ', numberInfo)
+	const mainCSV = numberInfo.map((element) => `${element.lastDraw},${element.date}`).join('\n')
+	// console.log('csv :', mainCSV);
 }
