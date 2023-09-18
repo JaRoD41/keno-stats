@@ -5,6 +5,7 @@ export const arrayGenerator = async () => {
 	console.log('data :', data)
 
 	const dataArray = document.querySelector('.historyArray') as HTMLDivElement
+	const csvLink = document.querySelector('.stats-csv') as HTMLDivElement
 
 	dataArray.innerHTML = ''
 
@@ -33,6 +34,20 @@ export const arrayGenerator = async () => {
 		}</li>`
 	}
 	console.log('numberInfo : ', numberInfo)
-	const mainCSV = numberInfo.map((element) => `${element.lastDraw},${element.date}`).join('\n')
-	// console.log('csv :', mainCSV);
+	const csvContent = numberInfo.map((element, index) => `${index + 1},${element.lastDraw},${element.date}`).join('\n')
+
+	// Je crée un blob à partir du contenu CSV
+	const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
+
+	// Créez une URL pour le blob
+	const url = URL.createObjectURL(blob)
+
+	// Je crée un lien pour télécharger le fichier CSV
+	const link = document.createElement('a')
+	link.href = url
+	link.download = 'resultats.csv'
+	link.textContent = 'Télécharger les résultats'
+
+	// Ajoutez le lien à votre page
+	csvLink.appendChild(link)
 }

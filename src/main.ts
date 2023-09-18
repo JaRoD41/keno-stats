@@ -7,6 +7,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     <div class="container">
         <h1>KenoStats</h1> 
         <span class="result-text">Détails des 31 derniers tirages :</span>
+        <div class="stats-csv"></div>
         <ul class="historyArray"></ul>
     </div>
 </main>
