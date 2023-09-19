@@ -1,4 +1,6 @@
 import { getNumbersHistory } from './api'
+// import Handsontable from 'handsontable/base'
+// import 'handsontable/dist/handsontable.full.min.css'
 
 export const arrayGenerator = async () => {
 	const data = await getNumbersHistory()
@@ -28,14 +30,35 @@ export const arrayGenerator = async () => {
 		}
 	}
 
+	// J'affiche les informations de chaque numéro
 	for (let i = 0; i < numberInfo.length; i++) {
-		dataArray.innerHTML += `<li>Numéro ${i + 1} : dernier tirage N°${numberInfo[i].lastDraw}, date : ${
-			numberInfo[i].date
-		}</li>`
+		const tirageNumber = numberInfo[i].lastDraw
+		const date = numberInfo[i].date
+		const boule = i + 1
+		dataArray.innerHTML += `<li>Numéro ${boule} : dernier tirage N°${tirageNumber}, date : ${date}</li>`
 	}
 	console.log('numberInfo : ', numberInfo)
+	const tirageArray = numberInfo.map((element, index) => {
+		return {
+			boule: index + 1,
+			tirage: element.lastDraw,
+			date: element.date,
+		}
+	})
 	const csvContent = numberInfo.map((element, index) => `${index + 1},${element.lastDraw},${element.date}`).join('\n')
 
+	console.log('tirageArray :', tirageArray)
+
+	// Je crée et j'affiche un tableau type excel avec les données
+	// const hot = new Handsontable(dataArray, {
+	// 	tirageArray,
+	// 	colHeaders: ['Boule', 'Tirage', 'Date'],
+	// 	height: 'auto',
+	// 	width: 'auto',
+	// 	columns: [{ tirageArray: 'boule' }, { tirageArray: 'tirage' }, { tirageArray: 'date' }],
+	// 	minSpareRows: 1,
+	// 	licenseKey: 'non-commercial-and-evaluation',
+	// })
 	// Je crée un blob à partir du contenu CSV
 	const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
 
