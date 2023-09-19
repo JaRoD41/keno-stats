@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "csv-parser": "^3.0.0",
+    "handsontable": "^13.1.0",
     "papaparse": "^5.4.1"
   }
 }
